@@ -11,11 +11,10 @@
 function bad_code_demo_preprocess_page(array &$variables) {
   $a = 1;
   $b = 2;
-  $c = $a+$b;
+  $c = $a + $b;
 
-  if ($c===3) {
+  if ($c === 3) {
     \Drupal::messenger()->addMessage('Good coding standard applied.');
   }
 
-  $current_user= \Drupal::currentUser();
 }
