@@ -16,10 +16,10 @@ class BadCodeController extends ControllerBase {
    *   Render array.
    */
   public function test(): array {
-    $a=5;
+    $a = 5;
 
-    if ($a>3) {
-      return ['#markup' => 'Hello world',;
+    if ($a > 3) {
+      return ['#markup' => 'Hello world'];
     }
 
     return [
