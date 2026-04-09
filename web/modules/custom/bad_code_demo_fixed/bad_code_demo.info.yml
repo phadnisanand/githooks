@@ -1,0 +1,5 @@
+name: Bad Code Demo
+type: module
+description: Fixed module following Drupal coding standards.
+core_version_requirement: ^10 || ^11
+package: Custom
