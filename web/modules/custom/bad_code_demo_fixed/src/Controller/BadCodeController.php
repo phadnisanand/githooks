@@ -19,9 +19,7 @@ class BadCodeController extends ControllerBase {
     $a=5;
 
     if ($a>3) {
-      return [
-        '#markup' => 'Hello world',
-      ];
+      return ['#markup' => 'Hello world',;
     }
 
     return [
