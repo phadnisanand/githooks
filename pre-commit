@@ -1,0 +1,41 @@
+#!/bin/sh
+
+echo "🔍 Running Drupal pre-commit checks..."
+
+FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(php|module|inc|install|theme)$')
+
+if [ -z "$FILES" ]; then
+  echo "✅ No Drupal files to check."
+  exit 0
+fi
+
+ERROR=0
+
+for FILE in $FILES
+do
+  if [ ! -f "$FILE" ]; then
+    continue
+  fi
+
+  echo "Checking: $FILE"
+
+  # Auto-fix
+  vendor/bin/phpcbf --standard=Drupal --extensions=php,module,inc,install,theme "$FILE"
+
+  # Check
+  vendor/bin/phpcs --standard=Drupal,DrupalPractice --extensions=php,module,inc,install,theme "$FILE"
+
+  if [ $? -ne 0 ]; then
+    ERROR=1
+  fi
+
+  git add "$FILE"
+done
+
+if [ $ERROR -ne 0 ]; then
+  echo "❌ Commit blocked: Fix coding standard issues."
+  exit 1
+fi
+
+echo "✅ All Drupal coding standards passed!"
+exit 0
